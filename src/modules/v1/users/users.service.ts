@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { ObjectId } from 'mongoose';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './schemas/users.schema';
-import { UserRepository } from './users.repository';
 import { hash } from 'bcrypt';
-import { Projection } from './interfaces/interfaces';
+import CreateUserDto from './dto/create-user.dto';
+import UpdateUserDto from './dto/update-user.dto';
+import { User } from './schemas/users.schema';
+import UserRepository from './users.repository';
+import { Projection } from '../../../interfaces/interfaces';
 
 @Injectable()
-export class UserService {
+export default class UserService {
   constructor(private userRepository: UserRepository) {}
 
   async getAll(): Promise<User[]> {
@@ -26,6 +26,7 @@ export class UserService {
   async create(createUser: CreateUserDto): Promise<User> {
     const hashPasswor: string = await hash(createUser.password, 10);
     const user: CreateUserDto = { ...createUser, password: hashPasswor };
+
     return this.userRepository.create(user);
   }
 

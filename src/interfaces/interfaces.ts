@@ -1,6 +1,7 @@
 import { ObjectId } from 'mongoose';
 
 export class Projection {
+  // eslint-disable-next-line no-undef
   [index: string]: number;
 }
 
@@ -9,7 +10,8 @@ export interface IConstants {
   secretRefresh: string;
   refreshTime: string;
 }
+
 export interface IPayload {
-  username: string;
-  sub: ObjectId;
+  email: string;
+  _id: ObjectId;
 }

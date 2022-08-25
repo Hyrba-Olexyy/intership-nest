@@ -10,17 +10,19 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { ObjectId } from 'mongoose';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { UserService } from './users.service';
+import CreateUserDto from './dto/create-user.dto';
+import UpdateUserDto from './dto/update-user.dto';
+import UserService from './users.service';
 import { User } from './schemas/users.schema';
-import { ParseObjectIdPipe } from '../../../pipes/parse-object-id.pipe';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import ParseObjectIdPipe from '../../../pipes/parse-object-id.pipe';
+import JwtAuthGuard from '../auth/guards/jwt-auth.guard';
 
 @UseGuards(JwtAuthGuard)
+@ApiTags('Users')
 @Controller('v1/user')
-export class UserController {
+export default class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
@@ -35,8 +37,7 @@ export class UserController {
       refreshToken: 0,
     });
 
-    if (user === null)
-      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    if (user === null) { throw new HttpException('User not found', HttpStatus.NOT_FOUND); }
 
     return user;
   }
@@ -52,16 +53,18 @@ export class UserController {
     @Param('id', ParseObjectIdPipe) id: ObjectId,
   ): Promise<User> {
     const user: User = await this.userService.update(id, updateUser);
-    if (user === null)
-      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+
+    if (user === null) { throw new HttpException('User not found', HttpStatus.NOT_FOUND); }
+
     return user;
   }
 
   @Delete(':id')
   async remove(@Param('id', ParseObjectIdPipe) id: ObjectId): Promise<User> {
     const user: User = await this.userService.remove(id);
-    if (user === null)
-      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+
+    if (user === null) { throw new HttpException('User not found', HttpStatus.NOT_FOUND); }
+
     return user;
   }
 }

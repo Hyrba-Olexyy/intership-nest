@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsString } from 'class-validator';
 
-export class CreateUserDto {
+export default class CreateUserDto {
   @ApiProperty()
   @IsEmail()
   @IsString()
@@ -14,8 +14,4 @@ export class CreateUserDto {
   @ApiProperty()
   @IsString()
   readonly password: string;
-
-  @ApiProperty()
-  @IsString()
-  readonly refreshToken?: string;
 }

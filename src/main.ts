@@ -1,12 +1,24 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
-import { AllExceptionsFilter } from './filters/all-exceptions.filter';
-import { AppModule } from './modules/app/app.module';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import AllExceptionsFilter from './filters/all-exceptions.filter';
+import AppModule from './modules/app/app.module';
 
 async function bootstrap(): Promise<void> {
   const app: INestApplication = await NestFactory.create(AppModule);
 
+  const config = new DocumentBuilder()
+    .setTitle('intership-nest')
+    .setDescription('ntership-nest API description')
+    .setVersion('0.0.1')
+    .addTag('ntership-nest')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+
+  SwaggerModule.setup('api', app, document);
+
   const { httpAdapter } = app.get(HttpAdapterHost);
+
   app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
 
   app.useGlobalPipes(new ValidationPipe());
