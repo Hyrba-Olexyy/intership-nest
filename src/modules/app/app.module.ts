@@ -8,7 +8,7 @@ import AuthModule from '../v1/auth/auth.module';
 
 @Module({
     imports: [
-        ConfigModule.forRoot({ ignoreEnvFile: true }),
+        ConfigModule.forRoot(),
         UserModule,
         AuthModule,
         MongooseModule.forRoot('mongodb://db:27017/users_nest'),
