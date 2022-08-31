@@ -6,12 +6,12 @@ import UserModule from '../v1/users/users.module';
 import AuthModule from '../v1/auth/auth.module';
 
 @Module({
-  imports: [
-    UserModule,
-    AuthModule,
-    MongooseModule.forRoot('mongodb://localhost:27017/users_nest'),
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+    imports: [
+        UserModule,
+        AuthModule,
+        MongooseModule.forRoot('mongodb://db:27017/users_nest'),
+    ],
+    controllers: [AppController],
+    providers: [AppService],
 })
 export default class AppModule {}

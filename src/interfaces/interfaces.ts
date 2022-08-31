@@ -1,7 +1,6 @@
 import { ObjectId } from 'mongoose';
 
-export class Projection {
-  // eslint-disable-next-line no-undef
+export interface IProjection {
   [index: string]: number;
 }
 
@@ -14,4 +13,15 @@ export interface IConstants {
 export interface IPayload {
   email: string;
   _id: ObjectId;
+}
+
+export interface ILogin {
+  email: string;
+  password: string;
+}
+
+export interface ISignOut {
+  data: {
+    message: string;
+  }
 }

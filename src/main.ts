@@ -5,24 +5,32 @@ import AllExceptionsFilter from './filters/all-exceptions.filter';
 import AppModule from './modules/app/app.module';
 
 async function bootstrap(): Promise<void> {
-  const app: INestApplication = await NestFactory.create(AppModule);
+    const app: INestApplication = await NestFactory.create(AppModule);
 
-  const config = new DocumentBuilder()
-    .setTitle('intership-nest')
-    .setDescription('ntership-nest API description')
-    .setVersion('0.0.1')
-    .addTag('ntership-nest')
-    .build();
-  const document = SwaggerModule.createDocument(app, config);
+    const config = new DocumentBuilder()
+        .setTitle('intership-nest')
+        .setDescription('intership-nest API description')
+        .setVersion('0.0.1')
+        .addTag('intership-nest')
+        .addBearerAuth(
+            {
+                type: 'http',
+                scheme: 'bearer',
+                bearerFormat: 'Token',
+            },
+            'access-token',
+        )
+        .build();
+    const document = SwaggerModule.createDocument(app, config);
 
-  SwaggerModule.setup('api', app, document);
+    SwaggerModule.setup('api', app, document);
 
-  const { httpAdapter } = app.get(HttpAdapterHost);
+    const { httpAdapter } = app.get(HttpAdapterHost);
 
-  app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
+    app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
 
-  app.useGlobalPipes(new ValidationPipe());
+    app.useGlobalPipes(new ValidationPipe());
 
-  await app.listen(3000);
+    await app.listen(3000);
 }
 bootstrap();

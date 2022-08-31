@@ -1,25 +1,31 @@
 import { Schema, SchemaFactory, Prop } from '@nestjs/mongoose';
+import { ApiProperty } from '@nestjs/swagger';
 import { Document, ObjectId } from 'mongoose';
 
 @Schema({
-  collection: 'users_nest',
-  versionKey: false,
-  timestamps: true,
+    collection: 'users_nest',
+    versionKey: false,
+    timestamps: true,
 })
 export class User {
+  @ApiProperty({ type: String })
   @Prop({ required: true, type: String, trim: true })
-    email?: string;
+      email?: string;
 
+    @ApiProperty({ type: String })
   @Prop({ required: true, type: String, trim: true })
-    fullName?: string;
+        fullName?: string;
 
+    @ApiProperty({ type: String })
   @Prop({ required: true, type: String, trim: true })
-    password?: string;
+        password?: string;
 
+    @ApiProperty({ type: String })
   @Prop({ type: String })
-    refreshToken?: string;
+        refreshToken?: string;
 
-  _id?: ObjectId;
+    @ApiProperty({ type: String })
+        _id: ObjectId;
 }
 
 export type UserDocument = User & Document;

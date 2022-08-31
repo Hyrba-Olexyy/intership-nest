@@ -1,19 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsString } from 'class-validator';
+import { ObjectId } from 'mongoose';
 
-export default class CreateUserDto {
+export default class PayloadDto {
   @ApiProperty({ type: String, required: true })
   @IsEmail()
   @IsString()
-  readonly email: string;
-
-  @ApiProperty({ type: String })
-  @ApiProperty()
-  @IsString()
-  readonly fullName?: string;
+    readonly email: string;
 
   @ApiProperty({ type: String, required: true })
-  @ApiProperty()
-  @IsString()
-  readonly password: string;
+      _id: ObjectId;
 }
