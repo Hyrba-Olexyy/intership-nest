@@ -8,10 +8,10 @@ import AuthModule from '../v1/auth/auth.module';
 
 @Module({
     imports: [
-        ConfigModule.forRoot(),
+        ConfigModule.forRoot({ isGlobal: true }),
         UserModule,
         AuthModule,
-        MongooseModule.forRoot('mongodb://db:27017/users_nest'),
+        MongooseModule.forRoot('mongodb+srv://Oleksii:Rupapi_84@cluster0.dssexcx.mongodb.net/nest'),
     ],
     controllers: [AppController],
     providers: [AppService],
