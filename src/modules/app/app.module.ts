@@ -11,7 +11,7 @@ import AuthModule from '../v1/auth/auth.module';
         ConfigModule.forRoot({ isGlobal: true }),
         UserModule,
         AuthModule,
-        MongooseModule.forRoot('mongodb+srv://Oleksii:Rupapi_84@cluster0.dssexcx.mongodb.net/nest'),
+        MongooseModule.forRoot('mongodb+srv://Oleksii:Rupapi_84@cluster0.dssexcx.mongodb.net/?retryWrites=true&w=majority'),
     ],
     controllers: [AppController],
     providers: [AppService],
